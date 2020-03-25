@@ -1,0 +1,42 @@
+{
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "parser": "babel-eslint",
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parserOptions": {
+    "allowImportExportEverywhere": true
+  },
+  "plugins": ["react"],
+  "rules": {
+    "no-case-declarations": 0,
+    "quotes": [
+      "error",
+      "single",
+      // To allow Template Literals inside Component props.
+      // ex. <Component width={`50%`}/>
+      //
+      { "allowTemplateLiterals": true }
+    ],
+    "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+    "react/display-name": ["off"],
+    // To allow absolute path imports in Meteor
+    "import/no-absolute-path": ["off"],
+    // To resolve https://github.com/clayne11/eslint-import-resolver-meteor/issues/17
+    "import/extensions": ["off", "never"],
+    // Work around until  https://github.com/benmosher/eslint-plugin-import/issues/479 is resolved
+    "import/no-extraneous-dependencies": ["off"],
+    // To allow `_id` access when retrieving Mongo documents
+    "no-underscore-dangle": ["off"],
+    "semi": "off",
+    "no-shadow": "warn",
+    "arrow-parens": "off",
+    "import/prefer-default-export": "off",
+    "max-len": ["warn", 120],
+    "no-confusing-arrow": "off",
+    "react/prop-types": "warn"
+  }
+}
