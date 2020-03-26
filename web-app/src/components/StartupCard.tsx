@@ -15,6 +15,11 @@ const Wrapper = styled.div`
   border-radius: 10px;
 
   width: 100%;
+  margin-bottom: 20px;
+
+  :hover {
+    cursor: pointer;
+  }
 `
 
 const InfoContainer = styled.div`

@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
-    background: #9B65E6;
+    background: #FFF;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-family: 'Roboto Condensed', sans-serif;
