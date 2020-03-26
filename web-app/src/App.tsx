@@ -1,9 +1,12 @@
 import React from 'react'
+import { Home } from './pages/Home'
+import { GlobalStyle } from './components/GlobalStyle'
 
 function App() {
   return (
     <div className="App">
-      <h1>Challenge</h1>
+      <GlobalStyle />
+      <Home />
     </div>
   )
 }
