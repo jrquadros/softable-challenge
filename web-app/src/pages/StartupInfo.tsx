@@ -1,6 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
+import { RouteComponentProps } from 'react-router-dom'
 
-export const StartupInfo: React.FunctionComponent = () => {
-  return <h1>StartupInfo</h1>
+type RouteParams = {
+  id: string
+}
+
+export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
+  return <h1>{props.match.params.id}</h1>
 }

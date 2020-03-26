@@ -7,7 +7,7 @@ export function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/startup" component={StartupInfo} />
+        <Route path="/startup/:id" component={StartupInfo} />
         <Route path="/" render={() => <Home />} />
       </Switch>
     </BrowserRouter>
