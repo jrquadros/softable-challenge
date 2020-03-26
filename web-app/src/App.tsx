@@ -1,12 +1,12 @@
 import React from 'react'
-import { Home } from './pages/Home'
+import { Routes } from './routes'
 import { GlobalStyle } from './components/GlobalStyle'
 
 function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <Home />
+      <Routes />
     </div>
   )
 }
