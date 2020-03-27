@@ -1,5 +1,6 @@
 import React from 'react'
 import { StartupCard } from '../components/StartupCard'
+import { Link } from 'react-router-dom'
 import { useQuery } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
@@ -42,6 +43,10 @@ type Data = {
   allStartups: Startup[]
 }
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
+
 export const Home: React.FC = () => {
   const { data, error, loading } = useQuery<Data>(ALL_STARTUPS_QUERY)
 
@@ -57,13 +62,15 @@ export const Home: React.FC = () => {
     <Wrapper>
       <Title>Escolha sua startup!</Title>
       {data?.allStartups.map((startup) => (
-        <StartupCard
-          key={startup.segment_id}
-          id={startup.segment_id}
-          imageUrl={startup.imageUrl}
-          name={startup.name}
-          segment={startup.Segment.name}
-        />
+        <StyledLink to={`/startup/${startup.segment_id}`}>
+          <StartupCard
+            key={startup.segment_id}
+            id={startup.segment_id}
+            imageUrl={startup.imageUrl}
+            name={startup.name}
+            segment={startup.Segment.name}
+          />
+        </StyledLink>
       ))}
     </Wrapper>
   )
