@@ -43,6 +43,10 @@ type Data = {
   allStartups: Startup[]
 }
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
+
 export const Home: React.FC = () => {
   const { data, error, loading } = useQuery<Data>(ALL_STARTUPS_QUERY)
 
@@ -58,7 +62,7 @@ export const Home: React.FC = () => {
     <Wrapper>
       <Title>Escolha sua startup!</Title>
       {data?.allStartups.map((startup) => (
-        <Link to={`/startup/${startup.segment_id}`}>
+        <StyledLink to={`/startup/${startup.segment_id}`}>
           <StartupCard
             key={startup.segment_id}
             id={startup.segment_id}
@@ -66,7 +70,7 @@ export const Home: React.FC = () => {
             name={startup.name}
             segment={startup.Segment.name}
           />
-        </Link>
+        </StyledLink>
       ))}
     </Wrapper>
   )
