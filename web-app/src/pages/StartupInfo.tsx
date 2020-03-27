@@ -1,5 +1,8 @@
 import React from 'react'
+import styled from 'styled-components'
 import { Profile } from '../components/Profile'
+import { Rating } from '../components/Rating'
+import { Separator } from '../components/Separator'
 import { useQuery } from 'react-apollo-hooks'
 import { RouteComponentProps } from 'react-router-dom'
 import gql from 'graphql-tag'
@@ -36,6 +39,12 @@ const STARTUP_INFO_QUERY = gql`
   }
 `
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
   const { data, error, loading } = useQuery<Data>(STARTUP_INFO_QUERY, {
     variables: { segmentId: props.match.params.id },
@@ -52,11 +61,19 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
   }
 
   return (
-    <Profile
-      imageUrl={startup?.imageUrl}
-      title={startup?.name}
-      Segment={startup?.Segment}
-      description={startup?.description}
-    />
+    <Wrapper>
+      <Profile
+        imageUrl={startup?.imageUrl}
+        title={startup?.name}
+        Segment={startup?.Segment}
+        description={startup?.description}
+      />
+      <Separator size={20} />
+      <Rating title={'Proposta'} />
+      <Separator size={20} />
+      <Rating title={'Apresentação/Pitch'} />
+      <Separator size={20} />
+      <Rating title={'Desenvolvimento'} />
+    </Wrapper>
   )
 }
