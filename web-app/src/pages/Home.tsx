@@ -1,5 +1,6 @@
 import React from 'react'
 import { StartupCard } from '../components/StartupCard'
+import { Link } from 'react-router-dom'
 import { useQuery } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
@@ -57,13 +58,15 @@ export const Home: React.FC = () => {
     <Wrapper>
       <Title>Escolha sua startup!</Title>
       {data?.allStartups.map((startup) => (
-        <StartupCard
-          key={startup.segment_id}
-          id={startup.segment_id}
-          imageUrl={startup.imageUrl}
-          name={startup.name}
-          segment={startup.Segment.name}
-        />
+        <Link to={`/startup/${startup.segment_id}`}>
+          <StartupCard
+            key={startup.segment_id}
+            id={startup.segment_id}
+            imageUrl={startup.imageUrl}
+            name={startup.name}
+            segment={startup.Segment.name}
+          />
+        </Link>
       ))}
     </Wrapper>
   )

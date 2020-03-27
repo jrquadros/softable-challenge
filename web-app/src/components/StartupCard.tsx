@@ -52,11 +52,13 @@ const Photo = styled.div<PhotoProps>`
 `
 
 const Title = styled.span`
+  text-decoration: none;
   font-size: 22px;
   color: #424242;
 `
 
 const Subtitle = styled.span`
+  text-decoration: none;
   font-size: 18px;
   color: #7a7a7a;
   margin-top: 5px;
