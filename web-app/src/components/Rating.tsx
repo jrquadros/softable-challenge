@@ -15,7 +15,7 @@ export const Rating = ({ title }: RatingProps) => {
   return (
     <>
       <Title>{title}</Title>
-      <MaterialRating size={'large'} />
+      <MaterialRating size={'large'} name={'startup-rating'} value={3.2} />
     </>
   )
 }
