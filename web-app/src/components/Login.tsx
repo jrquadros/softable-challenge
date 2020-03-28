@@ -1,25 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
-import firebase from '../services/firebase'
+import { Button } from '../components/Button'
 
-const Button = styled.button`
-  font-size: 18px;
-  padding: 5px;
+const Wrapper = styled.div`
+  background-color: #fff;
   border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `
 
-const provider = new firebase.auth.GoogleAuthProvider()
+const Title = styled.h1`
+  font-size: 22px;
+  margin-bottom: 20px;
+`
 
-const auth = () => {
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then((result) => {
-      console.log(result)
-    })
-    .catch((error) => console.log(error))
+type LoginProps = {
+  authFunction?: () => void
 }
 
-export const Login = () => {
-  return <Button onClick={auth}>Login</Button>
+export const Login = ({ authFunction }: LoginProps) => {
+  return (
+    <Wrapper>
+      <Title>Faça login para votar</Title>
+      <Button onClick={authFunction}>Login</Button>
+    </Wrapper>
+  )
 }
