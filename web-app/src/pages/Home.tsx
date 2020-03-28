@@ -47,7 +47,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `
 
-export const Home: React.FC = () => {
+export const Home = () => {
   const { data, error, loading } = useQuery<Data>(ALL_STARTUPS_QUERY)
 
   if (error) {
@@ -62,7 +62,7 @@ export const Home: React.FC = () => {
     <Wrapper>
       <Title>Escolha sua startup!</Title>
       {data?.allStartups.map((startup) => (
-        <StyledLink to={`/startup/${startup.segment_id}`}>
+        <StyledLink to={`/startup/${startup.segment_id}`} key={startup.segment_id}>
           <StartupCard
             key={startup.segment_id}
             id={startup.segment_id}
