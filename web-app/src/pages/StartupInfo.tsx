@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Profile } from '../components/Profile'
 import { Rating } from '../components/Rating'
@@ -46,6 +46,10 @@ const Wrapper = styled.div`
 `
 
 export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
+  const [proposal, setProposal] = useState<number | null | undefined>(0)
+  const [presentation, setPresentation] = useState<number | null | undefined>(0)
+  const [development, setDevelopment] = useState<number | null | undefined>(0)
+
   const { data, error, loading } = useQuery<Data>(STARTUP_INFO_QUERY, {
     variables: { segmentId: props.match.params.id },
   })
@@ -69,11 +73,32 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
         description={startup?.description}
       />
       <Separator size={20} />
-      <Rating title={'Proposta'} />
+      <Rating
+        name={'rating-proposal'}
+        title={'Proposta'}
+        value={proposal}
+        onChange={(event, newValue) => {
+          setProposal(newValue)
+        }}
+      />
       <Separator size={20} />
-      <Rating title={'Apresentação/Pitch'} />
+      <Rating
+        name={'rating-presentation'}
+        title={'Apresentação/Pitch'}
+        value={presentation}
+        onChange={(event, newValue) => {
+          setPresentation(newValue)
+        }}
+      />
       <Separator size={20} />
-      <Rating title={'Desenvolvimento'} />
+      <Rating
+        name={'rating-development'}
+        title={'Desenvolvimento'}
+        value={development}
+        onChange={(event, newValue) => {
+          setDevelopment(newValue)
+        }}
+      />
     </Wrapper>
   )
 }
