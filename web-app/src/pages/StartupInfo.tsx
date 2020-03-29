@@ -8,6 +8,8 @@ import { useQuery } from 'react-apollo-hooks'
 import { RouteComponentProps } from 'react-router-dom'
 import firebase from '../services/firebase'
 import gql from 'graphql-tag'
+import { Button } from '../components/Button'
+import { useHistory } from 'react-router-dom'
 
 type RouteParams = {
   id: string
@@ -17,6 +19,7 @@ type Startup = {
   name: string
   imageUrl: string
   description: string
+  segment_id: string
   Segment: Segment
 }
 
@@ -34,6 +37,7 @@ const STARTUP_INFO_QUERY = gql`
       name
       imageUrl
       description
+      segment_id
       Segment {
         name
       }
@@ -56,10 +60,32 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
   }
 
   const [rating, setRating] = useState<StartupRating>({})
-
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null)
 
-  // const writeStartupRating = () => {}
+  type WriteStartupRatingProps = {
+    startupId?: string
+    userId: string
+  }
+
+  const writeStartupRating = ({ startupId, userId }: WriteStartupRatingProps) => {
+    firebase
+      .database()
+      .ref(`startups/${startupId}/ratings/${userId}`)
+      .set({
+        rating: {
+          user: userId,
+          proposal: rating.proposal,
+          presentation: rating.presentation,
+          development: rating.development,
+        },
+      })
+  }
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      setCurrentUser(user)
+    }
+  })
 
   const userAuth = () => {
     const providers = {
@@ -68,27 +94,14 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
       twitter: new firebase.auth.TwitterAuthProvider(),
     }
 
-    firebase.auth().currentUser === null
-      ? firebase
-          .auth()
-          .signInWithPopup(providers.google)
-          .then((result) => {
-            const user = result.user
-            setCurrentUser(user)
-          })
-          .catch((error) => {
-            const errorCode = error.code
-            const errorMessage = error.message
-            const credential = error.credential
-
-            throw new Error(`code: ${errorCode} message: ${errorMessage} credential: ${credential}`)
-          })
-      : setCurrentUser(firebase.auth().currentUser)
+    firebase.auth().signInWithRedirect(providers.google)
   }
 
   const { data, error, loading } = useQuery<Data>(STARTUP_INFO_QUERY, {
     variables: { segmentId: props.match.params.id },
   })
+
+  const history = useHistory()
 
   const startup = data?.allStartups[0]
 
@@ -116,7 +129,12 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
             title={'Proposta'}
             value={rating.proposal}
             onChange={(event, newValue) => {
-              setRating({ proposal: newValue })
+              setRating({
+                proposal: newValue,
+                development: rating.development,
+                presentation: rating.presentation,
+              })
+              console.log(rating)
             }}
           />
           <Separator size={20} />
@@ -125,7 +143,11 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
             title={'Apresentação/Pitch'}
             value={rating.presentation}
             onChange={(event, newValue) => {
-              setRating({ presentation: newValue })
+              setRating({
+                presentation: newValue,
+                development: rating.development,
+                proposal: rating.proposal,
+              })
             }}
           />
           <Separator size={20} />
@@ -134,9 +156,22 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
             title={'Desenvolvimento'}
             value={rating.development}
             onChange={(event, newValue) => {
-              setRating({ development: newValue })
+              setRating({
+                development: newValue,
+                presentation: rating.presentation,
+                proposal: rating.proposal,
+              })
             }}
           />
+          <Separator size={20} />
+          <Button
+            onClick={() => {
+              writeStartupRating({ userId: currentUser.uid, startupId: startup?.segment_id })
+              history.replace('/results')
+            }}
+          >
+            Avaliar
+          </Button>
         </>
       ) : (
         <Login authFunction={userAuth} />
