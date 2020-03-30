@@ -51,6 +51,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: stretch;
   padding: 20px;
 `
 
@@ -165,7 +166,7 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
               })
             }}
           />
-          <Separator size={20} />
+          <Separator size={25} />
           <Button
             onClick={() => {
               writeStartupRating({ userId: currentUser.uid, startupId: startup?.segment_id })

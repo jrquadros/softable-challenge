@@ -8,7 +8,6 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
-  padding: 20px;
 `
 
 type PhotoProps = {
