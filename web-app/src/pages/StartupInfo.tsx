@@ -68,17 +68,13 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
   }
 
   const writeStartupRating = ({ startupId, userId }: WriteStartupRatingProps) => {
-    firebase
-      .database()
-      .ref(`startups/${startupId}/ratings/${userId}`)
-      .set({
-        rating: {
-          user: userId,
-          proposal: rating.proposal,
-          presentation: rating.presentation,
-          development: rating.development,
-        },
-      })
+    firebase.database().ref(`rating`).push({
+      startupId,
+      userId,
+      proposal: rating.proposal,
+      presentation: rating.presentation,
+      development: rating.development,
+    })
   }
 
   firebase.auth().onAuthStateChanged((user) => {
