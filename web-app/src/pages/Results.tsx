@@ -67,12 +67,33 @@ export const Results = () => {
         const startupInfo = startups.allStartups?.find(
           (item) => item.segment_id === lodash.head(startup)?.startupId
         )
-        return { startup: startupInfo, development: lodash.sumBy(startup, 'development') }
+        const averageRating = lodash.floor(
+          lodash.divide(lodash.sumBy(startup, 'development'), startup.length),
+          1
+        )
+        return { startup: startupInfo, development: averageRating }
       }),
       (item) => item.development
     )
 
-    return { development: lodash.reverse(startupsByDevelopment) }
+    const startupsByPresentation = lodash.sortBy(
+      startupsById.map((startup) => {
+        const startupInfo = startups.allStartups?.find(
+          (item) => item.segment_id === lodash.head(startup)?.startupId
+        )
+        const averageRating = lodash.floor(
+          lodash.divide(lodash.sumBy(startup, 'presentation'), startup.length),
+          1
+        )
+        return { startup: startupInfo, presentation: averageRating }
+      }),
+      (item) => item.presentation
+    )
+
+    return {
+      development: lodash.reverse(startupsByDevelopment),
+      presentation: lodash.reverse(startupsByPresentation),
+    }
   }
 
   if (error) {
