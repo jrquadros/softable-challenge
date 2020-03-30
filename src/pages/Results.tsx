@@ -156,7 +156,7 @@ export const Results = () => {
         <ResultCard
           key={ratingData.startup?.segment_id}
           imageUrl={ratingData.startup?.imageUrl}
-          segment={ratingData.startup?.Segment.name}
+          segment={ratingData.startup?.Segment?.name}
           name={ratingData.startup?.name}
           rating={ratingData.proposal}
           position={index + 1}
@@ -170,7 +170,7 @@ export const Results = () => {
         <ResultCard
           key={ratingData.startup?.segment_id}
           imageUrl={ratingData.startup?.imageUrl}
-          segment={ratingData.startup?.Segment.name}
+          segment={ratingData.startup?.Segment?.name}
           name={ratingData.startup?.name}
           rating={ratingData.presentation}
           position={index + 1}
@@ -184,7 +184,7 @@ export const Results = () => {
         <ResultCard
           key={ratingData.startup?.segment_id}
           imageUrl={ratingData.startup?.imageUrl}
-          segment={ratingData.startup?.Segment.name}
+          segment={ratingData.startup?.Segment?.name}
           name={ratingData.startup?.name}
           rating={ratingData.development}
           position={index + 1}

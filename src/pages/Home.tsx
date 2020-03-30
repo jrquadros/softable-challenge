@@ -74,7 +74,7 @@ export const Home = () => {
             id={startup.segment_id}
             imageUrl={startup.imageUrl}
             name={startup.name}
-            segment={startup.Segment.name}
+            segment={startup.Segment?.name}
           />
         </StyledLink>
       ))}
