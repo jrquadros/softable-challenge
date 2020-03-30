@@ -90,9 +90,25 @@ export const Results = () => {
       (item) => item.presentation
     )
 
+    const startupsByProposal = lodash.sortBy(
+      startupsById.map((startup) => {
+        const startupInfo = startups.allStartups?.find(
+          (item) => item.segment_id === lodash.head(startup)?.startupId
+        )
+        const averageRating = lodash.floor(
+          lodash.divide(lodash.sumBy(startup, 'proposal'), startup.length),
+          1
+        )
+
+        return { startup: startupInfo, proposal: averageRating }
+      }),
+      (item) => item.proposal
+    )
+
     return {
       development: lodash.reverse(startupsByDevelopment),
       presentation: lodash.reverse(startupsByPresentation),
+      proposal: lodash.reverse(startupsByProposal),
     }
   }
 
