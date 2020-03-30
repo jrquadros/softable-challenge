@@ -4,10 +4,12 @@ import firebase from '../services/firebase'
 import { useQuery } from 'react-apollo-hooks'
 import lodash from 'lodash'
 import gql from 'graphql-tag'
+import { Link } from 'react-router-dom'
 import { Separator } from '../components/Separator'
 import { ResultCard } from '../components/ResultCard'
 import { Center } from '../components/Center'
 import { Loading } from '../components/Loading'
+import { Button } from '../components/Button'
 
 type StartupRatingData = {
   development: number
@@ -188,6 +190,9 @@ export const Results = () => {
           position={index + 1}
         />
       ))}
+      <Link to={'/'}>
+        <Button>Avaliar outra StartUp</Button>
+      </Link>
     </Wrapper>
   )
 }
