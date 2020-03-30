@@ -1,14 +1,15 @@
 import firebase from 'firebase'
+import { config } from '../config'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCMDR95hNvfcJ4en5gaxjIp9T49FktokUw',
-  authDomain: 'softable-challenge.firebaseapp.com',
-  databaseURL: 'https://softable-challenge.firebaseio.com',
-  projectId: 'softable-challenge',
-  storageBucket: 'softable-challenge.appspot.com',
-  messagingSenderId: '202488731637',
-  appId: '1:202488731637:web:e4859b77e480aaeed2f2bc',
-  measurementId: 'G-PL227GKZ4K',
+  apiKey: config.firebase.apiKey,
+  authDomain: config.firebase.authDomain,
+  databaseURL: config.firebase.databaseURL,
+  projectId: config.firebase.projectId,
+  storageBucket: config.firebase.storageBucket,
+  messagingSenderId: config.firebase.messagingSenderId,
+  appId: config.firebase.appId,
+  measurementId: config.firebase.measurementId,
 }
 
 firebase.initializeApp(firebaseConfig)
