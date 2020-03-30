@@ -1,5 +1,7 @@
 import React from 'react'
 import { StartupCard } from '../components/StartupCard'
+import { Loading } from '../components/Loading'
+import { Center } from '../components/Center'
 import { Link } from 'react-router-dom'
 import { useQuery } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
@@ -55,7 +57,11 @@ export const Home = () => {
   }
 
   if (loading) {
-    return <p>loading...</p>
+    return (
+      <Center>
+        <Loading />
+      </Center>
+    )
   }
 
   return (

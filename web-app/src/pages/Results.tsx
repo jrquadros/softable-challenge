@@ -6,6 +6,8 @@ import lodash from 'lodash'
 import gql from 'graphql-tag'
 import { Separator } from '../components/Separator'
 import { ResultCard } from '../components/ResultCard'
+import { Center } from '../components/Center'
+import { Loading } from '../components/Loading'
 
 type StartupRatingData = {
   development: number
@@ -119,7 +121,11 @@ export const Results = () => {
   }
 
   if (loading) {
-    return <p>loading...</p>
+    return (
+      <Center>
+        <Loading />
+      </Center>
+    )
   }
 
   const { development, presentation, proposal } = startupsRanked()

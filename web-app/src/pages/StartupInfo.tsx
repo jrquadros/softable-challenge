@@ -4,6 +4,8 @@ import { Profile } from '../components/Profile'
 import { Rating } from '../components/Rating'
 import { Login } from '../components/Login'
 import { Separator } from '../components/Separator'
+import { Center } from '../components/Center'
+import { Loading } from '../components/Loading'
 import { useQuery } from 'react-apollo-hooks'
 import { RouteComponentProps } from 'react-router-dom'
 import firebase from '../services/firebase'
@@ -106,7 +108,11 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
   }
 
   if (loading) {
-    return <p>loading...</p>
+    return (
+      <Center>
+        <Loading />
+      </Center>
+    )
   }
 
   return (
