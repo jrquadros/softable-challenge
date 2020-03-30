@@ -61,18 +61,20 @@ const Position = styled.span`
 export const ResultCard = ({ name, imageUrl, segment, rating, position }: ResultCardProps) => {
   return (
     <Wrapper>
-      <Photo imageUrl={imageUrl} />
-      <StartupInfoContainer>
-        <Title>{name}</Title>
-        <Separator size={5} />
-        <Subtitle>{segment}</Subtitle>
-        <Separator size={10} />
-        <Separator size={10} />
-        <Row>
-          <Rating size={'medium'} readOnly={true} value={rating} precision={1} name={name} />
-          <RatingInfo>{rating}/5</RatingInfo>
-        </Row>
-      </StartupInfoContainer>
+      <Row>
+        <Photo imageUrl={imageUrl} />
+        <StartupInfoContainer>
+          <Title>{name}</Title>
+          <Separator size={5} />
+          <Subtitle>{segment}</Subtitle>
+          <Separator size={10} />
+          <Separator size={10} />
+          <Row>
+            <Rating size={'medium'} readOnly={true} value={rating} precision={1} name={name} />
+            <RatingInfo>{rating}/5</RatingInfo>
+          </Row>
+        </StartupInfoContainer>
+      </Row>
       <Position>{position}º</Position>
     </Wrapper>
   )

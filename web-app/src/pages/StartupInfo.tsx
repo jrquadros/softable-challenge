@@ -161,8 +161,8 @@ export const StartupInfo = (props: RouteComponentProps<RouteParams>) => {
           />
           <Separator size={20} />
           <Button
-            onClick={async () => {
-              await writeStartupRating({ userId: currentUser.uid, startupId: startup?.segment_id })
+            onClick={() => {
+              writeStartupRating({ userId: currentUser.uid, startupId: startup?.segment_id })
               history.replace('/results')
             }}
           >
