@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 import firebase from '../services/firebase'
 import { useQuery } from 'react-apollo-hooks'
 import lodash from 'lodash'
 import gql from 'graphql-tag'
+import { Separator } from '../components/Separator'
+import { ResultCard } from '../components/ResultCard'
 
 type StartupRatingData = {
   development: number
@@ -42,6 +45,7 @@ export const Results = () => {
 
   const { data, error, loading } = useQuery<StartupsData>(ALL_STARTUPS_QUERY)
 
+  // get rating data
   useEffect(() => {
     const startupsRef = firebase.database().ref('rating')
 
@@ -52,13 +56,11 @@ export const Results = () => {
     })
   }, [])
 
-  //console.log(startups.filter((startup) => startup.startup == '2'))
-
   useEffect(() => {
     setStartups({ allStartups: data?.allStartups })
   }, [data])
 
-  //ranking logic
+  // ranking logic
   const startupsRanked = () => {
     const startupsById = lodash.toArray(lodash.groupBy(startupsRating, 'startupId'))
 
@@ -120,6 +122,66 @@ export const Results = () => {
     return <p>loading...</p>
   }
 
-  console.log(startupsRanked())
-  return <div></div>
+  const { development, presentation, proposal } = startupsRanked()
+
+  const Wrapper = styled.div`
+    padding: 20px;
+  `
+
+  const Title = styled.h1`
+    font-size: 28px;
+  `
+
+  const Subtitle = styled.h2`
+    font-size: 24px;
+    font-weight: normal;
+  `
+
+  return (
+    <Wrapper>
+      <Title>Resultados</Title>
+
+      <Separator size={20} />
+      <Subtitle>Proposta</Subtitle>
+      <Separator size={20} />
+      {proposal.map((ratingData, index) => (
+        <ResultCard
+          key={ratingData.startup?.segment_id}
+          imageUrl={ratingData.startup?.imageUrl}
+          segment={ratingData.startup?.Segment.name}
+          name={ratingData.startup?.name}
+          rating={ratingData.proposal}
+          position={index + 1}
+        />
+      ))}
+
+      <Separator size={20} />
+      <Subtitle>Apesentação</Subtitle>
+      <Separator size={20} />
+      {presentation.map((ratingData, index) => (
+        <ResultCard
+          key={ratingData.startup?.segment_id}
+          imageUrl={ratingData.startup?.imageUrl}
+          segment={ratingData.startup?.Segment.name}
+          name={ratingData.startup?.name}
+          rating={ratingData.presentation}
+          position={index + 1}
+        />
+      ))}
+
+      <Separator size={20} />
+      <Subtitle>Desenvolvimento</Subtitle>
+      <Separator size={20} />
+      {development.map((ratingData, index) => (
+        <ResultCard
+          key={ratingData.startup?.segment_id}
+          imageUrl={ratingData.startup?.imageUrl}
+          segment={ratingData.startup?.Segment.name}
+          name={ratingData.startup?.name}
+          rating={ratingData.development}
+          position={index + 1}
+        />
+      ))}
+    </Wrapper>
+  )
 }
