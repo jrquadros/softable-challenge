@@ -11,8 +11,9 @@ const Wrapper = styled.div`
   width: 100%;
 `
 
-const Title = styled.h1`
+const Title = styled.span`
   font-size: 22px;
+
   margin-bottom: 20px;
 `
 
@@ -23,7 +24,7 @@ type LoginProps = {
 export const Login = ({ authFunction }: LoginProps) => {
   return (
     <Wrapper>
-      <Title>Faça login para votar</Title>
+      <Title>Faça login para avaliar</Title>
       <Button onClick={authFunction}>Login</Button>
     </Wrapper>
   )
